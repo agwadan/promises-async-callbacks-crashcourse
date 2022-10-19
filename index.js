@@ -27,7 +27,6 @@ async function kitchen() {
     console.log("Cut the fruit");
     await time(2000)
     console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} were added`);
-
     await time(1000)
     console.log("start the machine");
     await time(1000)
