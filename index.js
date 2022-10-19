@@ -1,3 +1,6 @@
+/* CALLBACKS --- HELL
+----------------------- */
+
 let stocks = {
   Fruits: ["strawberry", "grapes", "banana", "apple"],
   liquid: ["water", "ice"],
