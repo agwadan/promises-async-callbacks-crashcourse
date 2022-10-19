@@ -1,6 +1,3 @@
-/* CALLBACKS --- HELL
------------------------ */
-
 let stocks = {
   Fruits: ["strawberry", "grapes", "banana", "apple"],
   liquid: ["water", "ice"],
@@ -8,41 +5,26 @@ let stocks = {
   toppings: ["chocolate", "peanuts"],
 };
 
-let order = (fruit_name, call_production) => {
-  setTimeout(() => {
-    console.log(`${stocks.Fruits[fruit_name]} was selected`);
-    call_production();
-  }, 2000)
-}
+let is_shop_open = true;
 
-let production = () => {
-  setTimeout(() => {
-    console.log("Production has started");
-
-    setTimeout(() => {
-      console.log(`The Fruit has been chopped`);
-
+let order = (time, work) => {
+  return new Promise((resolve, reject) => {
+    if (is_shop_open) {
       setTimeout(() => {
-        console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} were added.`);
+        resolve(work());
+      }, time)
 
-        setTimeout(() => {
-          console.log('The machine has been started');
-
-          setTimeout(() => {
-            console.log(`${stocks.holder[0]} will hold the ice cream`);
-
-            setTimeout(() => {
-              console.log(`${stocks.toppings[0]} was added.`);
-
-              setTimeout(() => {
-                console.log('Serve Ice cream : )');
-              }, 2000)
-            }, 3000)
-          }, 2000)
-        }, 1000)
-      }, 1000)
-    }, 2000)
-  }, 1000)
+    } else {
+      reject(console.log(`Our shop is closed.`))
+    }
+  })
 }
 
-order(0, production)
+order(2000, () => console.log(`${stocks.Fruits[3]} has been selected`))
+  .then(() => { return order(0, () => console.log(`Production has started`)) })
+  .then(() => { return order(2000, () => console.log('The fruit was chopped')) })
+  .then(() => { return order(1000, () => console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} were selected`)) })
+  .then(() => { return order(1000, () => console.log("Start Machine")) })
+  .then(() => { return order(2000, () => console.log(`ice cream was placed on ${stocks.holder[2]}`)) })
+  .then(() => { return order(3000, () => console.log(`${stocks.toppings[1]} was selected for the topping.`)) })
+  .then(() => { return order(2000, () => console.log("Ice cream was served")) })
